@@ -7,5 +7,8 @@ class SessionsController < ApplicationController
 
   def destroy
   end
+
+  if BCrypt::Password.new(@user["password"]) == params["password"]
+
 end
   
