@@ -15,4 +15,9 @@ class PostsController < ApplicationController
     redirect_to "/places/#{@post["place_id"]}"
   end
 
+  def index
+    @posts = Post.all
+    @current_user = User.find_by({ "id" => session["user_id"] })
+  end
+
 end
