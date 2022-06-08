@@ -1,23 +1,39 @@
 class PostsController < ApplicationController
 
   def new
-    @post = Post.new
-    @post.place_id = params["place_id"]
   end
 
   def create
-    @post = Post.new
-    @post["title"] = params["post"]["title"]
-    @post["description"] = params["post"]["description"]
-    @post["posted_on"] = params["post"]["posted_on"]
-    @post["place_id"] = params["post"]["place_id"]
-    @post.save
-    redirect_to "/places/#{@post["place_id"]}"
+    @user = User.find_by({ "email" => params["email"] })
+    if @user
+      if BCrypt::Password.new(@user["password"]) == params["password"]
+        session["user_id"] = @user["id"]
+        flash["notice"] = "Hello."
+        redirect_to "/posts"
+      else
+        flash["notice"] = "Nope."
+        redirect_to "/login"
+      end
+    else
+      flash["notice"] = "Nope."
+      redirect_to "/login"
+    end
   end
 
-  def index
-    @posts = Post.all
-    @current_user = User.find_by({ "id" => session["user_id"] })
+  # def create
+  #   @post = Post.new
+  #   @post["title"] = params["post"]["title"]
+  #   @post["description"] = params["post"]["description"]
+  #   @post["posted_on"] = params["post"]["posted_on"]
+  #   @post["place_id"] = params["post"]["place_id"]
+  #   @post.save
+  #   redirect_to "/places/#{@post["place_id"]}"
+  # end
+
+  def destroy
+    session["user_id"] = nil
+    flash["notice"] = "Goodbye."
+    redirect_to "/login"
   end
 
 end
