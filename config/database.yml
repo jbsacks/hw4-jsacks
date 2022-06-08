@@ -23,3 +23,10 @@ test:
 production:
   <<: *default
   database: db/production.sqlite3
+
+  production:
+  <<: *default
+  adapter: postgresql
+  database: my_app_production
+  username: my_app
+  password: <%= ENV["HW4_JSACKS_DATABASE_PASSWORD"] %>
