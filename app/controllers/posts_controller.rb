@@ -16,25 +16,16 @@ class PostsController < ApplicationController
         flash["notice"] = "Hello."
         redirect_to "/posts"
       else
-        flash["notice"] = "Redirecting to the first else."
+        flash["notice"] = "Login First."
         redirect_to "/posts"
       end
     else
-      flash["notice"] = "Redirecting to the second else."
-      redirect_to "/places/"<%= place["id"] %>"><%= place["name"] %></a>"
+      flash["notice"] = "Login First."
+      redirect_to "/places/{@post["place_id"]}
     end
   end
 
-  # def create
-  #   @post = Post.new
-  #   @post["title"] = params["post"]["title"]
-  #   @post["description"] = params["post"]["description"]
-  #   @post["posted_on"] = params["post"]["posted_on"]
-  #   @post["place_id"] = params["post"]["place_id"]
-  #   @post.save
-  #   redirect_to "/places/#{@post["place_id"]}"
-  # end
-
+  
   def destroy
     session["user_id"] = nil
     flash["notice"] = "Goodbye."
