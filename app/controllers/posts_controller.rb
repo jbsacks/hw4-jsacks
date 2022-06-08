@@ -13,11 +13,11 @@ class PostsController < ApplicationController
     if @user
       if BCrypt::Password.new(@user["password"]) == params["password"]
         session["user_id"] = @user["id"]
-        flash["notice"] = "Hello."
+        # flash["notice"] = "Hello."
         redirect_to "/posts"
       else
         flash["notice"] = "Nope."
-        redirect_to "/login"
+        redirect_to "/posts"
       end
     else
       flash["notice"] = "Nope."

@@ -1,13 +1,5 @@
 class SessionsController < ApplicationController
-  # def new
-  # end
-
-  # def create
-  # end
-
-  # def destroy
-  # end
-
+ 
   def create
     @user = User.find_by({ "email" => params["email"] })
     if @user
@@ -26,6 +18,8 @@ class SessionsController < ApplicationController
       redirect_to "/sessions/new"
     end
   end 
+
+
   def destroy
     session["user_id"] = nil
     flash["notice"] = "Goodbye."
